@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BR RIO RISE RP ONLINE</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.ico">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #111;
+    }
+    header img {
+      width: 30px;
+      height: auto;
+      margin-right: 10px;
+    }
+    .container {
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+    }
+    .comprovante {
+      text-align: left;
+      background-color: #111;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .comprovante p {
+      margin: 8px 0;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+    .checkbox {
+      margin: 15px 0;
+      text-align: left;
+    }
+    .checkbox p {
+      color: #0f0;
+      font-weight: bold;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #0f0;
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    footer {
+      margin-top: 40px;
+      padding: 10px;
+      font-size: 12px;
+      color: #777;
+      border-top: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="br.svg" alt="Bandeira do Brasil">
+  <span>Brasil</span>
+</header>
+
+<div class="container">
+  <img src="zap.webp" alt="WhatsApp" style="width: 80px;">
+  <h2>ATENDENTE 439</h2>
+
+  <div class="comprovante">
+    <h3>📄 Comprovante de Pagamento</h3>
+    <p>💰 <strong>VALOR:</strong> <span id="valor"></span></p>
+    <p>💸 <strong>PREÇO:</strong> R$ <span id="preco"></span></p>
+    <p>🎁 <strong>BÔNUS:</strong> <span id="bonus"></span></p>
+    <p>🧾 <strong>TOTAL:</strong> <span id="total"></span></p>
+    <p>🏦 <strong>PIX:</strong> R$ <span id="pix"></span></p>
+  </div>
+
+  <label for="nome">🎮 Nome no Jogo:</label>
+  <input type="text" id="nome" placeholder="Digite seu nome no jogo">
+
+  <div class="checkbox">
+    <p>✅ Confirme que você tem mais de +🔞 anos</p>
+    <input type="checkbox" id="maiorIdade">
+    <label for="maiorIdade">Concordo que sou maior de 18 anos.</label>
+  </div>
+
+  <p>📌 Após a confirmação do pagamento, entre no jogo e se dirija para a <strong>Loja 32</strong>, localizada na <strong>Ilha dos Iniciantes</strong> em <strong>Nossa Senhora</strong>. Lá, um membro da equipe estará aguardando para entregar o valor comprado. ✅</p>
+
+  <a href="#" class="btn" id="finalizarBtn">✅ Finalizar a compra e prosseguir</a>
+</div>
+
+<footer>
+  © 2025 BR RIO RISE RP ONLINE • Todos os direitos reservados • Política de Privacidade • Termos de Uso • Contato
+</footer>
+
+<script>
+  // Função para obter parâmetros da URL
+  function getParam(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name) || '0';
+  }
+
+  const valor = getParam('valor');
+  const preco = getParam('preco');
+  const bonus = getParam('bonus');
+  const total = getParam('total');
+  const pix = getParam('pix');
+
+  document.getElementById('valor').textContent = valor;
+  document.getElementById('preco').textContent = preco;
+  document.getElementById('bonus').textContent = bonus;
+  document.getElementById('total').textContent = total;
+  document.getElementById('pix').textContent = parseFloat(pix).toFixed(2);
+
+  document.getElementById('finalizarBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    const nome = document.getElementById('nome').value.trim();
+    const maiorIdade = document.getElementById('maiorIdade').checked;
+
+    if (!nome) {
+      alert('Por favor, digite seu nome no jogo.');
+      return;
+    }
+    if (!maiorIdade) {
+      alert('Você precisa confirmar que é maior de 18 anos.');
+      return;
+    }
+
+    const dataHora = new Date().toLocaleString();
+
+    const mensagem = `📄 *Comprovante de Pagamento*\n` +
+                     `💰 VALOR: ${valor}\n` +
+                     `💸 PREÇO: R$ ${preco}\n` +
+                     `🎁 BÔNUS: ${bonus}\n` +
+                     `🧾 TOTAL: ${total}\n` +
+                     `🏦 PIX: R$ ${parseFloat(pix).toFixed(2)}\n` +
+                     `🎮 Nome no Jogo: ${nome}\n` +
+                     `🕒 Data/Hora: ${dataHora}\n` +
+                     `⏳ Tempo de espera: até 1 hora para resposta.\n`;
+
+    const numero = '5585997243058';
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+
+    window.location.href = url;
+  });
+</script>
+
+</body>
+</html>
