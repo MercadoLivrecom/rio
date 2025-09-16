@@ -1,216 +1,524 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BR RIO RISE RP ONLINE</title>
-  <link rel="icon" type="image/svg+xml" href="logo.svg">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #333;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produto - Aliança</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            background-color: #f9f9f9;
+        }
 
-    header {
-      display: flex;
-      align-items: center;
-      padding: 10px 20px;
-      background-color: #333;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    }
+        header img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-    .flag-icon {
-      width: 30px;
-      height: auto;
-      margin-right: 10px;
-    }
+        .product-container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
 
-    .country-name {
-      font-size: 18px;
-      font-weight: bold;
-    }
+        .image-gallery {
+            position: relative;
+            max-width: 400px;
+            margin: auto;
+            text-align: center;
+        }
 
-    .container {
-      max-width: 500px;
-      margin: 30px auto;
-      padding: 20px;
-      background-color: #444;
-      border-radius: 8px;
-    }
+        .product-image {
+            width: 100%;
+            border-radius: 6px;
+            display: block;
+        }
 
-    .floating-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 10px 0;
-    }
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            padding: 8px 12px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.3s ease;
+        }
 
-    .floating-buttons button {
-      background-color: #555;
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
+        .arrow:hover {
+            background: rgba(200, 200, 200, 0.9);
+        }
 
-    .floating-buttons button:hover {
-      background-color: #777;
-    }
+        .arrow-left {
+            left: -40px;
+        }
 
-    input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-    }
+        .arrow-right {
+            right: -40px;
+        }
 
-    .info {
-      margin: 10px 0;
-      font-size: 16px;
-    }
+        /* Linha de separação */
+        .divider {
+            width: 90%;
+            margin: 12px auto;
+            border: none;
+            border-top: 1px solid #333; /* cinza escuro quase preto */
+        }
 
-    .finalizar-btn {
-      width: 100%;
-      padding: 12px;
-      background-color: #0cbcc4;
-      border: none;
-      border-radius: 5px;
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
+        /* Avaliação abaixo da linha */
+        .rating {
+            margin-top: 10px;
+            text-align: left;
+            font-size: 16px;
+            color: #444;
+        }
 
-    .instructions {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #ccc;
-    }
+        .stars {
+            color: #ffcc00;
+            font-size: 18px;
+            margin-left: 6px;
+        }
 
-    footer {
-      margin-top: auto;
-      padding: 10px;
-      background-color: #222;
-      text-align: center;
-      font-size: 12px;
-      color: #888;
-    }
+        .product-title {
+            margin-top: 25px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
 
-    .green {
-      color: #0f0;
-      font-weight: bold;
-    }
-  </style>
+        .product-code {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .price-section {
+            margin: 15px 0;
+            font-size: 16px;
+        }
+
+        .price-section strong {
+            display: block;
+            font-size: 20px;
+            color: #c40000;
+            margin-bottom: 10px;
+        }
+
+        .buy-button {
+            display: inline-block;
+            padding: 14px 40px; /* botão mais largo */
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #28a745; /* verde */
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #218838;
+        }
+
+        .description {
+            margin-top: 20px;
+        }
+
+        .description h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .description p, .description li {
+            font-size: 15px;
+            color: #555;
+        }
+
+        .info-table {
+            margin-top: 10px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .info-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .info-table td:first-child {
+            font-weight: bold;
+            width: 180px;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <img src="br.svg" alt="Bandeira do Brasil" class="flag-icon">
-  <span class="country-name">Brasil</span>
-</header>
+    <header>
+        <img src="cabeçario.jpg" alt="Cabeçalho do site">
+    </header>
 
-<div class="container">
-  <h1>BR RIO RISE RP ONLINE</h1>
-  <p class="info">Cada R$1 = R$1.000 no jogo</p>
+    <div class="product-container">
+        
+        <!-- Galeria com setas -->
+        <div class="image-gallery">
+            <span class="arrow arrow-left">&#10094;</span>
+            <img src="1.jpg" alt="Imagem do Produto" class="product-image">
+            <span class="arrow arrow-right">&#10095;</span>
+        </div>
 
-  <label for="valor">Digite a quantidade desejada (até R$1.000.000):</label>
-  <input type="number" id="valor" placeholder="Ex: 10000" max="1000000" min="1000" step="1000">
+        <!-- Linha de separação -->
+        <hr class="divider">
 
-  <div class="floating-buttons">
-    <button onclick="addValor(1000)">R$ 1.000</button>
-    <button onclick="addValor(5000)">R$ 5.000</button>
-    <button onclick="addValor(7000)">R$ 7.000</button>
-    <button onclick="addValor(20000)">R$ 20.000</button>
-    <button onclick="addValor(50000)">R$ 50.000</button>
-    <button onclick="addValor(100000)">R$ 100.000</button>
-  </div>
+        <!-- Avaliação abaixo da linha -->
+        <div class="rating">
+            4.8 
+            <span class="stars">★★★★☆</span>
+        </div>
 
-  <p class="info"><strong>Servidor:</strong> Servidor <span class="green">24</span></p>
-  <p class="info"><strong>Seguidor:</strong> Online no momento ✅</p>
+        <h1 class="product-title" id="productName">Aliança Anatômica de Ouro 2k 750 e Ouro Branco 2k 0750 Largura 5.0mm Espessura 1.5mm</h1>
+        <p class="product-code">Código: ALF3101</p>
 
-  <p class="info"><strong>Preço:</strong> R$ <span id="preco">0</span></p>
-  <p class="info"><strong>Valor a pagar via PIX:</strong> R$ <span id="pix">0</span></p>
-  <p class="info" id="bonus-info" style="display: none;"><strong>Bônus:</strong> +<span id="bonus-valor"></span> extra!</p>
+        <div class="price-section">
+            <strong id="productPrice">Por R$11.616,91</strong>
 
-  <button class="finalizar-btn" onclick="finalizarPedido()">Finalizar Pedido</button>
+            <!-- Botão Comprar -->
+            <a href="#" id="buyButton" class="buy-button">Comprar agora</a>
 
-  <p class="instructions">Você será redirecionado para uma tela de dúvidas e em seguida para o WhatsApp para finalizar a compra.</p>
-</div>
+            <p>ou R$10.455,22 <b>(10% de desconto à vista)</b></p>
+            <p>ou 10x R$1.559,70 com juros de 2.99% a.m.</p>
+        </div>
 
-<footer>
-  &copy; 2025 BR RIO RISE RP ONLINE - Todos os direitos reservados. Proibida a reprodução total ou parcial sem autorização. Segurança, compromisso e qualidade no seu roleplay!
-</footer>
+        <div class="description">
+            <h3>Descrição sobre o produto</h3>
+            <p><b>Descrição | Perguntas Frequentes | Comentários a este produto: 78</b></p>
+            
+            <h3>Informações do produto</h3>
+            <table class="info-table">
+                <tr>
+                    <td>REF:</td>
+                    <td>ALF3101</td>
+                </tr>
+                <tr>
+                    <td>Tipo:</td>
+                    <td>Aliança</td>
+                </tr>
+                <tr>
+                    <td>Espessura:</td>
+                    <td>1.5 mm</td>
+                </tr>
+                <tr>
+                    <td>Largura:</td>
+                    <td>5.0 mm</td>
+                </tr>
+                <tr>
+                    <td>Peso:</td>
+                    <td>7.00 g</td>
+                </tr>
+                <tr>
+                    <td>Material:</td>
+                    <td>Ouro 2k 750</td>
+                </tr>
+                <tr>
+                    <td>Prazo de entrega:</td>
+                    <td>De 3 a 10 dias úteis após a confirmação do pedido e pagamento.</td>
+                </tr>
+                <tr>
+                    <td>Garantia:</td>
+                    <td>Permanente da Fábrica</td>
+                </tr>
+                <tr>
+                    <td>Observação:</td>
+                    <td>A aliança é fabricada sob encomenda, selecione o tamanho correto do seu aro.</td>
+                </tr>
+                <tr>
+                    <td>Origem:</td>
+                    <td>Made in Brazil</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
-<script>
-  const inputValor = document.getElementById('valor');
-  const precoSpan = document.getElementById('preco');
-  const pixSpan = document.getElementById('pix');
-  const bonusInfo = document.getElementById('bonus-info');
-  const bonusValorSpan = document.getElementById('bonus-valor');
+    <script>
+        // Captura os valores do produto
+        const productName = document.getElementById("productName").innerText;
+        const productPrice = document.getElementById("productPrice").innerText;
 
-  function calcularBonus(valor) {
-    if (valor >= 500000) return 300000;
-    if (valor >= 50000 && valor <= 100000) return 20000;
-    if (valor >= 20000 && valor <= 40000) return 5000;
-    return 0;
-  }
-
-  function atualizarPreco() {
-    let valor = parseInt(inputValor.value) || 0;
-    if (valor > 1000000) valor = 1000000;
-
-    precoSpan.textContent = valor;
-
-    let pix = valor / 1000;
-    pixSpan.textContent = pix.toFixed(2);
-
-    let bonus = calcularBonus(valor);
-
-    if (bonus > 0) {
-      bonusInfo.style.display = 'block';
-      bonusValorSpan.textContent = bonus;
-    } else {
-      bonusInfo.style.display = 'none';
-    }
-  }
-
-  inputValor.addEventListener('input', atualizarPreco);
-
-  function addValor(quantia) {
-    let atual = parseInt(inputValor.value) || 0;
-    let novoValor = atual + quantia;
-    if (novoValor > 1000000) novoValor = 1000000;
-
-    inputValor.value = novoValor;
-    atualizarPreco();
-  }
-
-  function finalizarPedido() {
-    let valor = parseInt(inputValor.value) || 0;
-    if (valor < 1000) {
-      alert("Por favor, escolha no mínimo R$ 1.000.");
-      return;
-    }
-
-    let preco = valor;
-    let pix = preco / 1000;
-    let bonus = calcularBonus(valor);
-    let total = valor + bonus;
-
-    let url = `duvidas.html?valor=${valor}&preco=${preco}&bonus=${bonus}&total=${total}&pix=${pix.toFixed(2)}`;
-
-    window.location.href = url;
-  }
-</script>
+        // Define o link do botão com parâmetros
+        document.getElementById("buyButton").href = `s.html?name=${encodeURIComponent(productName)}&price=${encodeURIComponent(productPrice)}`;
+    </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- BLOCO DE COMENTÁRIOS PROFISSIONAL -->
+<div class="comments-section">
+    <!-- Qualificação -->
+    <div class="comments-rating">
+        <span class="score">4.8</span>
+        <span class="stars">★★★★☆</span>
+    </div>
+
+    <!-- Lista de comentários -->
+    <div class="comments-list">
+        <div class="comment">
+            <img src="1.webp" alt="Comentário 1">
+            <div class="comment-text">
+                <p><strong>João Silva</strong> <span class="comment-date" id="date1"></span></p>
+                <p>Produto chegou perfeito, exatamente como na descrição. Recomendo!</p>
+            </div>
+        </div>
+
+        <div class="comment">
+            <img src="3.webp" alt="Comentário 2">
+            <div class="comment-text">
+                <p><strong>Maria Oliveira</strong> <span class="comment-date" id="date2"></span></p>
+                <p>A aliança é linda e muito bem acabada, chegou dentro do prazo. Valeu a pena!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Campo Ler Mais estilo profissional -->
+    <div class="load-more-field" id="loadMoreBtn">Ler mais</div>
+</div>
+
+<!-- Loader -->
+<div class="loader-overlay" id="loaderOverlay">
+    <div class="loader"></div>
+</div>
+
+<style>
+    .comments-section {
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    .comments-rating {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        color: #444;
+        margin-bottom: 15px;
+    }
+
+    .comments-rating .score {
+        font-weight: bold;
+        margin-right: 8px;
+    }
+
+    .comments-rating .stars {
+        color: #ffcc00;
+        font-size: 20px;
+    }
+
+    .comments-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .comment {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+    }
+
+    .comment img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+    }
+
+    .comment-text p {
+        font-size: 15px;
+        color: #555;
+        margin: 2px 0;
+    }
+
+    .comment-date {
+        font-size: 13px;
+        color: #999;
+        margin-left: 8px;
+    }
+
+    /* Campo Ler Mais */
+    .load-more-field {
+        width: 90%;
+        margin: 25px auto 0 auto;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 16px;
+        color: #333;
+        cursor: pointer;
+        background: #fafafa;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+        transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .load-more-field:hover {
+        background: #f0f0f0;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* Loader (círculo central) */
+    .loader-overlay {
+        display: none; /* inicialmente escondido */
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 90%;
+        background: rgba(255,255,255,0.9);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .loader {
+        border: 6px solid #ddd;
+        border-top: 6px solid #333;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const loadMoreBtn = document.getElementById("loadMoreBtn");
+        const loaderOverlay = document.getElementById("loaderOverlay");
+
+        // Loader aparece por 2 segundos ao clicar em Ler mais
+        loadMoreBtn.addEventListener("click", () => {
+            loaderOverlay.style.display = "flex";
+            setTimeout(() => {
+                loaderOverlay.style.display = "none";
+            }, 2000);
+        });
+
+        // Gera datas e horas aleatórias
+        function generateCommentDate(daysAgo) {
+            const now = new Date();
+            now.setDate(now.getDate() - daysAgo);
+            const hours = 8 + Math.floor(Math.random() * 10); // hora aleatória entre 8 e 17
+            const minutes = Math.floor(Math.random() * 60);
+            now.setHours(hours, minutes);
+            return `${daysAgo <= 7 ? daysAgo + " dias atrás" : Math.ceil(daysAgo/7) + " semana(s) atrás"} às ${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}`;
+        }
+
+        // Atualiza as datas dos comentários
+        document.getElementById("date1").innerText = generateCommentDate(3); // 3 dias atrás
+        document.getElementById("date2").innerText = generateCommentDate(7); // 1 semana atrás
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Rodapé -->
+<footer class="site-footer">
+    <p>
+        © 2025 Verse Joaillerie ® é uma marca registrada.<br>
+        Online desde 2010, entregamos joias excepcionais para clientes especiais em todo o Brasil.<br>
+        <b>CNPJ:</b> 01.509.972/0001-79
+    </p>
+
+    <div class="footer-info">
+        <p><b>Código e descrição da natureza jurídica:</b> 206-2 - Sociedade Empresária Limitada</p>
+        <p><b>Logradouro:</b> R Apeninos, Nº 485, Sala 111</p>
+        <p><b>CEP:</b> 01.533-000</p>
+        <p><b>Bairro/Distrito:</b> Aclimação</p>
+        <p><b>Município:</b> São Paulo - SP</p>
+        <p><b>Endereço eletrônico:</b> <a href="mailto:ADMINISTRATIVO@VERSE-JOAILLERIE.COM.BR">ADMINISTRATIVO@VERSE-JOAILLERIE.COM.BR</a></p>
+        <p><b>Telefone:</b> (11) 2362-5805</p>
+        <p><b>Ente Federativo Responsável (EFR)</b></p>
+    </div>
+</footer>
+
+<style>
+    .site-footer {
+        max-width: 900px; /* mesma largura dos containers principais */
+        margin: 30px auto 0 auto; 
+        background-color: #000; 
+        color: #fff; 
+        text-align: center;
+        padding: 20px 15px;
+        font-size: 14px;
+        line-height: 1.6;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .site-footer p {
+        margin: 6px 0;
+    }
+
+    .footer-info {
+        margin-top: 15px;
+        text-align: left; /* deixar mais organizado */
+        font-size: 13px;
+    }
+
+    .footer-info a {
+        color: #1e90ff; /* azul para link */
+        text-decoration: none;
+    }
+
+    .footer-info a:hover {
+        text-decoration: underline;
+    }
+</style>
+

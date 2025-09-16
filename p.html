@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagamento</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    header img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .payment-container {
+      max-width: 950px;
+      margin: 30px auto;
+      padding: 25px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .payment-header {
+      text-align: left;
+      margin-bottom: 25px;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 15px;
+    }
+
+    .payment-header h1 {
+      font-size: 26px;
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    .payment-header p {
+      font-size: 16px;
+      margin: 4px 0;
+    }
+
+    .payment-methods {
+      margin-top: 20px;
+    }
+
+    .method {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border: 2px solid #ddd;
+      padding: 18px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+    }
+
+    .method:hover {
+      border-color: #28a745;
+      background: #f9fffa;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .method img {
+      width: 45px;
+      height: auto;
+    }
+
+    .method span {
+      font-size: 18px;
+      font-weight: 600;
+      color: #444;
+    }
+
+    .extra-options {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 8px;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+    }
+
+    .extra-options h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #222;
+    }
+
+    .extra-options label {
+      display: block;
+      margin: 8px 0;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .security-info {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 8px;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+    }
+
+    .security-info h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #222;
+    }
+
+    .security-info ul {
+      padding-left: 20px;
+    }
+
+    .security-info li {
+      font-size: 14px;
+      margin: 6px 0;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="cabeçario.jpg" alt="Cabeçalho do site">
+  </header>
+
+  <div class="payment-container">
+    <div class="payment-header">
+      <h1>Finalizar Pagamento</h1>
+      <p><strong>Produto:</strong> <span id="productPrice"></span></p>
+      <p><strong>Nome:</strong> <span id="userName"></span></p>
+      <p><strong>CPF:</strong> <span id="userCPF"></span></p>
+    </div>
+
+    <div class="payment-methods">
+      <a id="cardLink" class="method">
+        <img src="c.jpg" alt="Cartão">
+        <span>Pagar com Cartão</span>
+      </a>
+      <a id="pixLink" class="method">
+        <img src="pix.jpg" alt="Pix">
+        <span>Pagar com Pix</span>
+      </a>
+    </div>
+
+    <div class="extra-options">
+      <h3>📦 Opções de Entrega</h3>
+      <label><input type="radio" name="frete" value="sedex"> Sedex - Entrega rápida (2 dias úteis)</label>
+      <label><input type="radio" name="frete" value="expresso"> Expresso - Entrega em até 5 dias úteis</label>
+      <label><input type="radio" name="frete" value="normal" checked> Normal - Entrega em até 13 dias úteis</label>
+
+      <h3>🛡️ Garantia Adicional</h3>
+      <label><input type="checkbox" name="seguro" value="1"> Ativar seguro contra perda ou extravio do item</label>
+    </div>
+
+    <div class="security-info">
+      <h3>🔒 Instruções de Segurança</h3>
+      <ul>
+        <li>Seus dados pessoais são tratados com total sigilo e segurança.</li>
+        <li>Os pagamentos são processados em ambiente seguro e criptografado.</li>
+        <li>Jamais compartilhe sua senha ou código do Pix com terceiros.</li>
+        <li>Verifique sempre se o endereço do site é oficial antes de finalizar a compra.</li>
+        <li>Em caso de dúvidas, entre em contato pelo nosso atendimento oficial.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Captura os parâmetros da URL
+    const params = new URLSearchParams(window.location.search);
+    const nome = params.get("nome") || "Cliente";
+    const cpf = params.get("cpf") || "***.***.***-**";
+    const price = params.get("price") || "R$ 0,00";
+
+    // Função para mascarar nome (primeira letra do primeiro e último nome)
+    function maskName(fullName) {
+      const parts = fullName.trim().split(" ");
+      if (parts.length < 2) return fullName[0] + "****";
+      const first = parts[0][0] + "****";
+      const last = parts[parts.length - 1][0] + "****";
+      return first + " " + last;
+    }
+
+    // Função para mascarar CPF
+    function maskCPF(cpf) {
+      return "***.***.***-**";
+    }
+
+    // Inserir dados na página
+    document.getElementById("productPrice").textContent = price;
+    document.getElementById("userName").textContent = maskName(decodeURIComponent(nome));
+    document.getElementById("userCPF").textContent = maskCPF(decodeURIComponent(cpf));
+
+    // Definir links de pagamento com parâmetros de URL
+    document.getElementById("cardLink").href = `cc.html?price=${encodeURIComponent(price)}`;
+    document.getElementById("pixLink").href = `pix.html?price=${encodeURIComponent(price)}`;
+  </script>
+
+</body>
+</html>

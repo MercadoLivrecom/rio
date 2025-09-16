@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pagamento Pix</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    text-align: center;
+  }
+
+  header img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .pix-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #222;
+  }
+
+  p {
+    font-size: 16px;
+    margin: 8px 0;
+  }
+
+  .pix-key {
+    word-break: break-all;
+    font-family: monospace;
+    font-size: 14px;
+    background: #f4f4f4;
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+  }
+
+  .amount {
+    font-size: 20px;
+    font-weight: bold;
+    color: #28a745;
+    margin-top: 15px;
+  }
+
+  .copy-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #0eb8c0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .instructions {
+    text-align: left;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+
+  .instructions ol {
+    padding-left: 20px;
+  }
+
+  /* Mensagens flutuantes */
+  .popup, .copy-popup {
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    text-align: center;
+    z-index: 1000;
+  }
+
+  .popup img {
+    width: 150px;
+    height: auto;
+    margin-bottom: 15px;
+  }
+
+  .popup h2 {
+    margin: 10px 0;
+    color: #28a745;
+  }
+
+  .countdown {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #007bff;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="cabeçario.jpg" alt="Cabeçalho do site">
+</header>
+
+<div class="pix-container">
+  <h1>Faça o pagamento via Pix</h1>
+  <p>Escaneie o QR code abaixo ou use a chave Pix copiando e colando:</p>
+
+  <img src="5.png" alt="QR Code Pix" style="width: 300px; height: 300px; margin: 20px 0;">
+
+  <div class="pix-key" id="pixKey">
+    00020101021226800014br.gov.bcb.pix2558pix.delbank.com.br/v2/cob/vcharge6f0ba38c080042028b3b993415204000053039865802BR5907DELBANK6007ARACAJU62070503***63047226
+  </div>
+
+  <button class="copy-button" onclick="copyPix()">Copiar chave Pix</button>
+
+  <div class="amount">
+    Valor: <span id="pixAmount">R$ 0,00</span>
+  </div>
+
+  <div class="countdown" id="countdown">Tempo restante: 01:10</div>
+
+  <div class="instructions">
+    <p><strong>Instruções para pagamento:</strong></p>
+    <ol>
+      <li>Abra o aplicativo do seu banco ou Pix.</li>
+      <li>Escolha a opção "Pagar com Pix".</li>
+      <li>Copie e cole a chave Pix ou escaneie o QR Code acima.</li>
+      <li>Confirme o valor e envie o pagamento.</li>
+      <li>Aguarde a confirmação do pagamento.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Mensagem de pagamento confirmado -->
+<div class="popup" id="popup">
+  <img src="7.gif" alt="Pagamento Aprovado">
+  <h2>Pagamento Confirmado</h2>
+  <p id="popupAmount"></p>
+</div>
+
+<!-- Mensagem de chave copiada -->
+<div class="copy-popup" id="copyPopup">
+  <p>Chave Pix copiada!</p>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const price = params.get("price") || "R$ 0,00";
+  document.getElementById("pixAmount").textContent = price;
+
+  let timerInterval;
+
+  function copyPix() {
+    const pixKey = document.getElementById("pixKey").textContent;
+    navigator.clipboard.writeText(pixKey).then(() => {
+      showCopyMessage();
+      startTimer();
+    });
+  }
+
+  function showCopyMessage() {
+    const copyPopup = document.getElementById("copyPopup");
+    copyPopup.style.display = "block";
+    setTimeout(() => {
+      copyPopup.style.display = "none";
+    }, 2000);
+  }
+
+  function startTimer() {
+    let totalSeconds = 70; // 1 minuto e 10 segundos
+    updateCountdown(totalSeconds);
+
+    timerInterval = setInterval(() => {
+      totalSeconds--;
+      updateCountdown(totalSeconds);
+
+      if (totalSeconds === 60) { // Quando restar 1 minuto
+        showPopup();
+      }
+
+      if (totalSeconds <= 0) {
+        clearInterval(timerInterval);
+      }
+    }, 1000);
+  }
+
+  function updateCountdown(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    const formatted = `${minutes.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+    document.getElementById("countdown").textContent = "Tempo restante: " + formatted;
+  }
+
+  function showPopup() {
+    const popup = document.getElementById("popup");
+    document.getElementById("popupAmount").textContent = "Valor: " + price;
+    popup.style.display = "block";
+  }
+</script>
+
+</body>
+</html>
